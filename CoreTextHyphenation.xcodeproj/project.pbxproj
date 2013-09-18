@@ -24,6 +24,7 @@
 		98BD704E17E9C35700BD2E58 /* CTHView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98BD704917E9C35700BD2E58 /* CTHView.m */; };
 		98BD704F17E9C35700BD2E58 /* CTHMarkupStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 98BD704B17E9C35700BD2E58 /* CTHMarkupStyle.m */; };
 		98BD705017E9C35700BD2E58 /* CTHMarkupParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 98BD704D17E9C35700BD2E58 /* CTHMarkupParser.m */; };
+		98F12D5F17E9F777006328B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98F12D5E17E9F777006328B2 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		98BD704B17E9C35700BD2E58 /* CTHMarkupStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTHMarkupStyle.m; path = CTHyphenation/CTHMarkupStyle.m; sourceTree = "<group>"; };
 		98BD704C17E9C35700BD2E58 /* CTHMarkupParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTHMarkupParser.h; path = CTHyphenation/CTHMarkupParser.h; sourceTree = "<group>"; };
 		98BD704D17E9C35700BD2E58 /* CTHMarkupParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTHMarkupParser.m; path = CTHyphenation/CTHMarkupParser.m; sourceTree = "<group>"; };
+		98F12D5E17E9F777006328B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98F12D5F17E9F777006328B2 /* QuartzCore.framework in Frameworks */,
 				98BD701517E9C31200BD2E58 /* CoreGraphics.framework in Frameworks */,
 				98BD701717E9C31200BD2E58 /* UIKit.framework in Frameworks */,
 				98BD701317E9C31200BD2E58 /* Foundation.framework in Frameworks */,
@@ -110,6 +113,7 @@
 		98BD701117E9C31200BD2E58 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				98F12D5E17E9F777006328B2 /* QuartzCore.framework */,
 				98BD701217E9C31200BD2E58 /* Foundation.framework */,
 				98BD701417E9C31200BD2E58 /* CoreGraphics.framework */,
 				98BD701617E9C31200BD2E58 /* UIKit.framework */,

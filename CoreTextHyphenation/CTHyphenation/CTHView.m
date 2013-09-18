@@ -9,9 +9,12 @@
 #import "CTHView.h"
 #import "CTHMarkupParser.h"
 #import <CoreText/CoreText.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface CTHView()
 @property (nonatomic, strong) NSAttributedString* hyphenatedString;
+@property (nonatomic, assign) CTFrameRef ctFrame;
+@property (nonatomic, strong) CALayer* wordLayer;
 @end
 
 @implementation CTHView
@@ -45,9 +48,7 @@
         NSString* lineString = [sourceString attributedSubstringFromRange:NSMakeRange(start, count)].string;
         unichar lastChar = [lineString characterAtIndex:lineString.length-1];
         
-        NSLog(@"------------------------------------");
         NSString* strLinea = [sourceString attributedSubstringFromRange:NSMakeRange(start, count)].string;
-        NSLog(@"'%@'", strLinea);
         
         if(newLine != lastChar) {
             
@@ -82,7 +83,8 @@
                     NSRange lineRange = NSMakeRange(start, count);
                     NSMutableAttributedString* lineAttrString = [sourceString attributedSubstringFromRange:lineRange].mutableCopy;
                     
-                    [lineAttrString insertAttributedString:[[NSAttributedString alloc] initWithString:@"-"] atIndex:lineAttrString.length];
+                    [lineAttrString replaceCharactersInRange:NSMakeRange(lineAttrString.length, 0) withString:@"-"];
+
                     [resultString appendAttributedString:lineAttrString];
                     
                     line = CTTypesetterCreateLine(ctTypeSetter, CFRangeMake(start, count));
@@ -124,21 +126,10 @@
     CGContextTranslateCTM(context, 0, self.bounds.size.height);
     CGContextScaleCTM(context, 1.0, -1.0);
     
-    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.hyphenatedString);
-    
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddRect(path, NULL, self.bounds);
-    
-    CTFrameRef frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, [self.hyphenatedString length]), path, NULL);
-    
-    CTFrameDraw(frame, context);
-    
-    CFRelease(frame);
-    CFRelease(path);
-    CFRelease(framesetter);
+    CTFrameDraw(self.ctFrame, context);
 }
 
-- (void)layoutSubviews {
+- (void) layoutSubviews {
     if(self.hyphenate) {
         NSDictionary* attributes = [self.attString attributesAtIndex:0 effectiveRange:NULL];
         CTParagraphStyleRef paragraphStyle = (__bridge CTParagraphStyleRef)([attributes valueForKey:(id)kCTParagraphStyleAttributeName]);
@@ -160,7 +151,85 @@
         self.frame = viewFrame;
     }
     
+    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.hyphenatedString);
+    
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddRect(path, NULL, self.bounds);
+    
+    
+    self.ctFrame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, [self.hyphenatedString length]), path, NULL);
+  /*
+    CFRelease(frame);
+    CFRelease(path);
+    CFRelease(framesetter);
+*/
     [self setNeedsDisplay];
+}
+
+- (NSString *) seleccionaPalabraEnPunto:(CGPoint) punto {
+    
+    CFArrayRef lines = CTFrameGetLines(self.ctFrame);
+    size_t numOfLines = CFArrayGetCount(lines);
+    CGPoint lineOrigins[numOfLines];
+    CTFrameGetLineOrigins(self.ctFrame, CFRangeMake(0, 0), lineOrigins);
+    
+    CGRect lineFrame;
+    
+    for (CFIndex i = 0; i < numOfLines; i++) {
+        CTLineRef line = CFArrayGetValueAtIndex(lines, i);
+        
+        CGFloat width = 0;
+        CGFloat height = 0;
+        CGFloat leading = 0;
+        CGFloat ascent = 0;
+        CGFloat descent = 0;
+        CFRange strRange = CTLineGetStringRange(line);
+        CGFloat offsetX = CTLineGetOffsetForStringIndex(line, strRange.location, NULL);
+        
+        width = (CGFloat)CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
+        width += leading;
+        height = ascent + descent;
+        lineFrame = CGRectMake(lineOrigins[i].x + offsetX, self.bounds.size.height - (lineOrigins[i].y - descent) - height, width, height);
+        
+        if(CGRectContainsPoint(lineFrame, punto)) {
+            CFIndex stringIndex = CTLineGetStringIndexForPosition(line, CGPointMake(punto.x, 0));
+            
+            CFRange lineRange = CTLineGetStringRange(line);
+            NSString * lineStr = [self.attString attributedSubstringFromRange:NSMakeRange(lineRange.location, lineRange.length)].string;
+            NSArray* palabras = [lineStr componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            int numchar = 0;
+            int indice = stringIndex - lineRange.location;
+            int p = 0;
+            NSString* palabra;
+            BOOL encontrado = NO;
+            while(!encontrado && numchar<lineStr.length) {
+                palabra = [palabras objectAtIndex:p];
+                if((numchar + palabra.length) > indice)
+                    encontrado = YES;
+                else {
+                    numchar += palabra.length+1;
+                    p += 1;
+                }
+            }
+            
+            CGFloat inicio = CTLineGetOffsetForStringIndex(line, numchar + lineRange.location, NULL);
+            CGFloat final = CTLineGetOffsetForStringIndex(line, numchar+palabra.length  + lineRange.location, NULL);
+            CGRect wordFrame = CGRectMake(inicio, self.bounds.size.height - (lineOrigins[i].y - descent) - height, final-inicio, height);
+            
+            if(self.wordLayer)
+                [self.wordLayer removeFromSuperlayer];
+            
+            self.wordLayer = [CALayer layer];
+            self.wordLayer.frame = CGRectInset(wordFrame, -5, 0);
+            self.wordLayer.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:0.4].CGColor;
+            [self.layer insertSublayer:self.wordLayer atIndex:0];
+            
+            NSLog(@"palabra: %@", palabra);
+            return palabra;
+        }
+    }
+
+    return nil;
 }
 
 @end

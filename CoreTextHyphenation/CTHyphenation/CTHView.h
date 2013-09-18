@@ -12,4 +12,5 @@
 @property (nonatomic, strong) NSAttributedString* attString;
 @property (nonatomic, assign) BOOL hyphenate;
 @property (nonatomic, assign) BOOL autoSize;
+- (NSString *) seleccionaPalabraEnPunto:(CGPoint) punto;
 @end
