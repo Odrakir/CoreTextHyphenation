@@ -1,0 +1,475 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		98BD701317E9C31200BD2E58 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98BD701217E9C31200BD2E58 /* Foundation.framework */; };
+		98BD701517E9C31200BD2E58 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98BD701417E9C31200BD2E58 /* CoreGraphics.framework */; };
+		98BD701717E9C31200BD2E58 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98BD701617E9C31200BD2E58 /* UIKit.framework */; };
+		98BD701D17E9C31200BD2E58 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 98BD701B17E9C31200BD2E58 /* InfoPlist.strings */; };
+		98BD701F17E9C31200BD2E58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98BD701E17E9C31200BD2E58 /* main.m */; };
+		98BD702317E9C31200BD2E58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98BD702217E9C31200BD2E58 /* AppDelegate.m */; };
+		98BD702617E9C31200BD2E58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98BD702417E9C31200BD2E58 /* Main.storyboard */; };
+		98BD702917E9C31200BD2E58 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98BD702817E9C31200BD2E58 /* ViewController.m */; };
+		98BD702B17E9C31200BD2E58 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98BD702A17E9C31200BD2E58 /* Images.xcassets */; };
+		98BD703217E9C31200BD2E58 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98BD703117E9C31200BD2E58 /* XCTest.framework */; };
+		98BD703317E9C31200BD2E58 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98BD701217E9C31200BD2E58 /* Foundation.framework */; };
+		98BD703417E9C31200BD2E58 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98BD701617E9C31200BD2E58 /* UIKit.framework */; };
+		98BD703C17E9C31200BD2E58 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 98BD703A17E9C31200BD2E58 /* InfoPlist.strings */; };
+		98BD703E17E9C31200BD2E58 /* CoreTextHyphenationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 98BD703D17E9C31200BD2E58 /* CoreTextHyphenationTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		98BD703517E9C31200BD2E58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98BD700717E9C31200BD2E58 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 98BD700E17E9C31200BD2E58;
+			remoteInfo = CoreTextHyphenation;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		98BD700F17E9C31200BD2E58 /* CoreTextHyphenation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreTextHyphenation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		98BD701217E9C31200BD2E58 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		98BD701417E9C31200BD2E58 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		98BD701617E9C31200BD2E58 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		98BD701A17E9C31200BD2E58 /* CoreTextHyphenation-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CoreTextHyphenation-Info.plist"; sourceTree = "<group>"; };
+		98BD701C17E9C31200BD2E58 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		98BD701E17E9C31200BD2E58 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		98BD702017E9C31200BD2E58 /* CoreTextHyphenation-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CoreTextHyphenation-Prefix.pch"; sourceTree = "<group>"; };
+		98BD702117E9C31200BD2E58 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		98BD702217E9C31200BD2E58 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		98BD702517E9C31200BD2E58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		98BD702717E9C31200BD2E58 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		98BD702817E9C31200BD2E58 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		98BD702A17E9C31200BD2E58 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		98BD703017E9C31200BD2E58 /* CoreTextHyphenationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreTextHyphenationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		98BD703117E9C31200BD2E58 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		98BD703917E9C31200BD2E58 /* CoreTextHyphenationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CoreTextHyphenationTests-Info.plist"; sourceTree = "<group>"; };
+		98BD703B17E9C31200BD2E58 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		98BD703D17E9C31200BD2E58 /* CoreTextHyphenationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreTextHyphenationTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		98BD700C17E9C31200BD2E58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98BD701517E9C31200BD2E58 /* CoreGraphics.framework in Frameworks */,
+				98BD701717E9C31200BD2E58 /* UIKit.framework in Frameworks */,
+				98BD701317E9C31200BD2E58 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98BD702D17E9C31200BD2E58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98BD703217E9C31200BD2E58 /* XCTest.framework in Frameworks */,
+				98BD703417E9C31200BD2E58 /* UIKit.framework in Frameworks */,
+				98BD703317E9C31200BD2E58 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		98BD700617E9C31200BD2E58 = {
+			isa = PBXGroup;
+			children = (
+				98BD701817E9C31200BD2E58 /* CoreTextHyphenation */,
+				98BD703717E9C31200BD2E58 /* CoreTextHyphenationTests */,
+				98BD701117E9C31200BD2E58 /* Frameworks */,
+				98BD701017E9C31200BD2E58 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		98BD701017E9C31200BD2E58 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				98BD700F17E9C31200BD2E58 /* CoreTextHyphenation.app */,
+				98BD703017E9C31200BD2E58 /* CoreTextHyphenationTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		98BD701117E9C31200BD2E58 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				98BD701217E9C31200BD2E58 /* Foundation.framework */,
+				98BD701417E9C31200BD2E58 /* CoreGraphics.framework */,
+				98BD701617E9C31200BD2E58 /* UIKit.framework */,
+				98BD703117E9C31200BD2E58 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		98BD701817E9C31200BD2E58 /* CoreTextHyphenation */ = {
+			isa = PBXGroup;
+			children = (
+				98BD702117E9C31200BD2E58 /* AppDelegate.h */,
+				98BD702217E9C31200BD2E58 /* AppDelegate.m */,
+				98BD702417E9C31200BD2E58 /* Main.storyboard */,
+				98BD702717E9C31200BD2E58 /* ViewController.h */,
+				98BD702817E9C31200BD2E58 /* ViewController.m */,
+				98BD702A17E9C31200BD2E58 /* Images.xcassets */,
+				98BD701917E9C31200BD2E58 /* Supporting Files */,
+			);
+			path = CoreTextHyphenation;
+			sourceTree = "<group>";
+		};
+		98BD701917E9C31200BD2E58 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				98BD701A17E9C31200BD2E58 /* CoreTextHyphenation-Info.plist */,
+				98BD701B17E9C31200BD2E58 /* InfoPlist.strings */,
+				98BD701E17E9C31200BD2E58 /* main.m */,
+				98BD702017E9C31200BD2E58 /* CoreTextHyphenation-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		98BD703717E9C31200BD2E58 /* CoreTextHyphenationTests */ = {
+			isa = PBXGroup;
+			children = (
+				98BD703D17E9C31200BD2E58 /* CoreTextHyphenationTests.m */,
+				98BD703817E9C31200BD2E58 /* Supporting Files */,
+			);
+			path = CoreTextHyphenationTests;
+			sourceTree = "<group>";
+		};
+		98BD703817E9C31200BD2E58 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				98BD703917E9C31200BD2E58 /* CoreTextHyphenationTests-Info.plist */,
+				98BD703A17E9C31200BD2E58 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		98BD700E17E9C31200BD2E58 /* CoreTextHyphenation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 98BD704117E9C31200BD2E58 /* Build configuration list for PBXNativeTarget "CoreTextHyphenation" */;
+			buildPhases = (
+				98BD700B17E9C31200BD2E58 /* Sources */,
+				98BD700C17E9C31200BD2E58 /* Frameworks */,
+				98BD700D17E9C31200BD2E58 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CoreTextHyphenation;
+			productName = CoreTextHyphenation;
+			productReference = 98BD700F17E9C31200BD2E58 /* CoreTextHyphenation.app */;
+			productType = "com.apple.product-type.application";
+		};
+		98BD702F17E9C31200BD2E58 /* CoreTextHyphenationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 98BD704417E9C31200BD2E58 /* Build configuration list for PBXNativeTarget "CoreTextHyphenationTests" */;
+			buildPhases = (
+				98BD702C17E9C31200BD2E58 /* Sources */,
+				98BD702D17E9C31200BD2E58 /* Frameworks */,
+				98BD702E17E9C31200BD2E58 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				98BD703617E9C31200BD2E58 /* PBXTargetDependency */,
+			);
+			name = CoreTextHyphenationTests;
+			productName = CoreTextHyphenationTests;
+			productReference = 98BD703017E9C31200BD2E58 /* CoreTextHyphenationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		98BD700717E9C31200BD2E58 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Ricardo Sanchez Sotres";
+				TargetAttributes = {
+					98BD702F17E9C31200BD2E58 = {
+						TestTargetID = 98BD700E17E9C31200BD2E58;
+					};
+				};
+			};
+			buildConfigurationList = 98BD700A17E9C31200BD2E58 /* Build configuration list for PBXProject "CoreTextHyphenation" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 98BD700617E9C31200BD2E58;
+			productRefGroup = 98BD701017E9C31200BD2E58 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				98BD700E17E9C31200BD2E58 /* CoreTextHyphenation */,
+				98BD702F17E9C31200BD2E58 /* CoreTextHyphenationTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		98BD700D17E9C31200BD2E58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98BD702B17E9C31200BD2E58 /* Images.xcassets in Resources */,
+				98BD701D17E9C31200BD2E58 /* InfoPlist.strings in Resources */,
+				98BD702617E9C31200BD2E58 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98BD702E17E9C31200BD2E58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98BD703C17E9C31200BD2E58 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		98BD700B17E9C31200BD2E58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98BD702917E9C31200BD2E58 /* ViewController.m in Sources */,
+				98BD702317E9C31200BD2E58 /* AppDelegate.m in Sources */,
+				98BD701F17E9C31200BD2E58 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98BD702C17E9C31200BD2E58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98BD703E17E9C31200BD2E58 /* CoreTextHyphenationTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		98BD703617E9C31200BD2E58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 98BD700E17E9C31200BD2E58 /* CoreTextHyphenation */;
+			targetProxy = 98BD703517E9C31200BD2E58 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		98BD701B17E9C31200BD2E58 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				98BD701C17E9C31200BD2E58 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		98BD702417E9C31200BD2E58 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				98BD702517E9C31200BD2E58 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		98BD703A17E9C31200BD2E58 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				98BD703B17E9C31200BD2E58 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		98BD703F17E9C31200BD2E58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		98BD704017E9C31200BD2E58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		98BD704217E9C31200BD2E58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CoreTextHyphenation/CoreTextHyphenation-Prefix.pch";
+				INFOPLIST_FILE = "CoreTextHyphenation/CoreTextHyphenation-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		98BD704317E9C31200BD2E58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CoreTextHyphenation/CoreTextHyphenation-Prefix.pch";
+				INFOPLIST_FILE = "CoreTextHyphenation/CoreTextHyphenation-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		98BD704517E9C31200BD2E58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CoreTextHyphenation.app/CoreTextHyphenation";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CoreTextHyphenation/CoreTextHyphenation-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "CoreTextHyphenationTests/CoreTextHyphenationTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		98BD704617E9C31200BD2E58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CoreTextHyphenation.app/CoreTextHyphenation";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CoreTextHyphenation/CoreTextHyphenation-Prefix.pch";
+				INFOPLIST_FILE = "CoreTextHyphenationTests/CoreTextHyphenationTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		98BD700A17E9C31200BD2E58 /* Build configuration list for PBXProject "CoreTextHyphenation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98BD703F17E9C31200BD2E58 /* Debug */,
+				98BD704017E9C31200BD2E58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		98BD704117E9C31200BD2E58 /* Build configuration list for PBXNativeTarget "CoreTextHyphenation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98BD704217E9C31200BD2E58 /* Debug */,
+				98BD704317E9C31200BD2E58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		98BD704417E9C31200BD2E58 /* Build configuration list for PBXNativeTarget "CoreTextHyphenationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98BD704517E9C31200BD2E58 /* Debug */,
+				98BD704617E9C31200BD2E58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 98BD700717E9C31200BD2E58 /* Project object */;
+}
