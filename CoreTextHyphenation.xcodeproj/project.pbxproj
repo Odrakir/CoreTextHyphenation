@@ -21,6 +21,9 @@
 		98BD703417E9C31200BD2E58 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98BD701617E9C31200BD2E58 /* UIKit.framework */; };
 		98BD703C17E9C31200BD2E58 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 98BD703A17E9C31200BD2E58 /* InfoPlist.strings */; };
 		98BD703E17E9C31200BD2E58 /* CoreTextHyphenationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 98BD703D17E9C31200BD2E58 /* CoreTextHyphenationTests.m */; };
+		98BD704E17E9C35700BD2E58 /* CTHView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98BD704917E9C35700BD2E58 /* CTHView.m */; };
+		98BD704F17E9C35700BD2E58 /* CTHMarkupStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 98BD704B17E9C35700BD2E58 /* CTHMarkupStyle.m */; };
+		98BD705017E9C35700BD2E58 /* CTHMarkupParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 98BD704D17E9C35700BD2E58 /* CTHMarkupParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,12 @@
 		98BD703917E9C31200BD2E58 /* CoreTextHyphenationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CoreTextHyphenationTests-Info.plist"; sourceTree = "<group>"; };
 		98BD703B17E9C31200BD2E58 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		98BD703D17E9C31200BD2E58 /* CoreTextHyphenationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreTextHyphenationTests.m; sourceTree = "<group>"; };
+		98BD704817E9C35700BD2E58 /* CTHView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTHView.h; path = CTHyphenation/CTHView.h; sourceTree = "<group>"; };
+		98BD704917E9C35700BD2E58 /* CTHView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTHView.m; path = CTHyphenation/CTHView.m; sourceTree = "<group>"; };
+		98BD704A17E9C35700BD2E58 /* CTHMarkupStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTHMarkupStyle.h; path = CTHyphenation/CTHMarkupStyle.h; sourceTree = "<group>"; };
+		98BD704B17E9C35700BD2E58 /* CTHMarkupStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTHMarkupStyle.m; path = CTHyphenation/CTHMarkupStyle.m; sourceTree = "<group>"; };
+		98BD704C17E9C35700BD2E58 /* CTHMarkupParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTHMarkupParser.h; path = CTHyphenation/CTHMarkupParser.h; sourceTree = "<group>"; };
+		98BD704D17E9C35700BD2E58 /* CTHMarkupParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTHMarkupParser.m; path = CTHyphenation/CTHMarkupParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +121,8 @@
 		98BD701817E9C31200BD2E58 /* CoreTextHyphenation */ = {
 			isa = PBXGroup;
 			children = (
+				98BD705117E9E8D900BD2E58 /* iPad */,
+				98BD704717E9C34600BD2E58 /* CTHyphenation */,
 				98BD702117E9C31200BD2E58 /* AppDelegate.h */,
 				98BD702217E9C31200BD2E58 /* AppDelegate.m */,
 				98BD702417E9C31200BD2E58 /* Main.storyboard */,
@@ -150,6 +161,26 @@
 				98BD703A17E9C31200BD2E58 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		98BD704717E9C34600BD2E58 /* CTHyphenation */ = {
+			isa = PBXGroup;
+			children = (
+				98BD704817E9C35700BD2E58 /* CTHView.h */,
+				98BD704917E9C35700BD2E58 /* CTHView.m */,
+				98BD704A17E9C35700BD2E58 /* CTHMarkupStyle.h */,
+				98BD704B17E9C35700BD2E58 /* CTHMarkupStyle.m */,
+				98BD704C17E9C35700BD2E58 /* CTHMarkupParser.h */,
+				98BD704D17E9C35700BD2E58 /* CTHMarkupParser.m */,
+			);
+			name = CTHyphenation;
+			sourceTree = "<group>";
+		};
+		98BD705117E9E8D900BD2E58 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = iPad;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,7 +280,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98BD705017E9C35700BD2E58 /* CTHMarkupParser.m in Sources */,
 				98BD702917E9C31200BD2E58 /* ViewController.m in Sources */,
+				98BD704E17E9C35700BD2E58 /* CTHView.m in Sources */,
+				98BD704F17E9C35700BD2E58 /* CTHMarkupStyle.m in Sources */,
 				98BD702317E9C31200BD2E58 /* AppDelegate.m in Sources */,
 				98BD701F17E9C31200BD2E58 /* main.m in Sources */,
 			);
@@ -381,7 +415,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreTextHyphenation/CoreTextHyphenation-Prefix.pch";
 				INFOPLIST_FILE = "CoreTextHyphenation/CoreTextHyphenation-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -394,7 +430,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreTextHyphenation/CoreTextHyphenation-Prefix.pch";
 				INFOPLIST_FILE = "CoreTextHyphenation/CoreTextHyphenation-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -460,6 +498,7 @@
 				98BD704317E9C31200BD2E58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		98BD704417E9C31200BD2E58 /* Build configuration list for PBXNativeTarget "CoreTextHyphenationTests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +507,7 @@
 				98BD704617E9C31200BD2E58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
