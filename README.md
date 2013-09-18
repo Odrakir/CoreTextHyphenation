@@ -1,4 +1,4 @@
-CoreTextHyphenation
+Automatic Core Text Hyphenation
 ===================
 
 Trying to add hyphenation for core text.
