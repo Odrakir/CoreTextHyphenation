@@ -3,12 +3,28 @@
 
 @implementation CTHMarkupParser
 
+static UIFont* defaultFont;
+static UIFont* boldFont;
+static UIFont* italicFont;
+
++ (void) setFont:(UIFont *) regular bold:(UIFont *) bold italic:(UIFont *) italic {
+    defaultFont = regular;
+    boldFont = bold;
+    italic = italic;
+}
 
 + (NSAttributedString*)attrStringFromMarkup:(NSString*)markup {
+    if(!defaultFont)
+        defaultFont = [UIFont fontWithName:@"Helvetica" size:12.0f];
+    if(!boldFont)
+        boldFont = [UIFont fontWithName:@"Helvetica-Bold" size:12.0f];
+    if(!italicFont)
+        italicFont = [UIFont fontWithName:@"Helvetica-Oblique" size:12.0f];
+    
     NSMutableArray* estilos = [[NSMutableArray alloc] init];
     
     CTHMarkupStyle* estilo = [[CTHMarkupStyle alloc] init];
-    UIFont* fuente = [UIFont fontWithName:@"Helvetica" size:17.0f];
+    UIFont* fuente = defaultFont;
     estilo.font = fuente.fontName;
     estilo.fontSize = 17.0f;
     estilo.color = [UIColor colorWithHue:0.0 saturation:0.0 brightness:0.0 alpha:0.8];
@@ -45,10 +61,6 @@
             
         };
         
-        
-        
-        
-        
         CTParagraphStyleRef paragraphStyle = CTParagraphStyleCreate(settings,
                                                                     sizeof(settings)/sizeof(settings[0]));
         
@@ -71,6 +83,7 @@
                 
                 if(estilos.count>1)
                     [estilos removeLastObject];
+                
             } else {
                 CTHMarkupStyle* estilo = [[CTHMarkupStyle alloc] initWithStyle:(CTHMarkupStyle*)[estilos lastObject]];
                 
@@ -78,9 +91,18 @@
                     
                     //color
                     NSRegularExpression* colorRegex = [[NSRegularExpression alloc] initWithPattern:@"(?<=color=\")\\w+" options:0 error:NULL];
-                    [colorRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, [tag length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
-                        SEL colorSel = NSSelectorFromString([NSString stringWithFormat: @"%@Color", [tag substringWithRange:match.range]]);
-                        estilo.color = [UIColor performSelector:colorSel];
+                    [colorRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, [tag length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){                        
+                        
+                        NSScanner *scanner = [NSScanner scannerWithString:[tag substringWithRange:match.range]];
+                        uint baseColor;
+                        [scanner scanUpToCharactersFromSet:[NSCharacterSet alphanumericCharacterSet] intoString:nil];
+                        [scanner scanHexInt:&baseColor];
+                        CGFloat red   = ((baseColor & 0xFF0000) >> 16) / 255.0f;
+                        CGFloat green = ((baseColor & 0x00FF00) >>  8) / 255.0f;
+                        CGFloat blue  =  (baseColor & 0x0000FF) / 255.0f;
+
+                        estilo.color = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
+
                     }];
                     
                     //face
@@ -97,16 +119,14 @@
                 }
                 
                 
-                if ([tag hasPrefix:@"strong"]) {
-                    UIFont* fuente = [UIFont fontWithName:@"Helvetica" size:17.0f];
+                if ([tag hasPrefix:@"strong"]||[tag hasPrefix:@"b"]) {
+                    UIFont* fuente = [boldFont fontWithSize:estilo.fontSize];
                     estilo.font = fuente.fontName;
                 }
                 if ([tag hasPrefix:@"i"]||[tag hasPrefix:@"em"]) {
-                    UIFont* fuente = [UIFont fontWithName:@"Helvetica" size:17.0f];
+                    UIFont* fuente = [italicFont fontWithSize:estilo.fontSize];
                     estilo.font = fuente.fontName;
                 }
-                
-                
                 
                 [estilos addObject:estilo];
             }

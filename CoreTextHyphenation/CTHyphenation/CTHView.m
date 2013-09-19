@@ -200,7 +200,7 @@
             
             CFRange lineRange = CTLineGetStringRange(line);
             NSString * lineStr = [self.stringToDraw attributedSubstringFromRange:NSMakeRange(lineRange.location, lineRange.length)].string;
-            NSArray* palabras = [lineStr componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            NSArray* palabras = [lineStr componentsSeparatedByCharactersInSet:[[NSCharacterSet letterCharacterSet] invertedSet]];
             int numchar = 0;
             int indice = (int)stringIndex - (int)lineRange.location;
             int p = 0;
