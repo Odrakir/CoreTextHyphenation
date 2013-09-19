@@ -11,8 +11,9 @@
 #import "CTHView.h"
 
 @interface ViewController ()
-@property (strong, nonatomic) IBOutlet CTHView *textView;
+@property (strong, nonatomic) CTHView *textView;
 @property (nonatomic, strong) NSArray* glosario;
+@property (nonatomic, strong) NSAttributedString* attString;
 @end
 
 @implementation ViewController
@@ -24,27 +25,52 @@
     
     self.glosario = [NSArray arrayWithObjects:@"libros", @"veinte", @"verosímies", @"velludo", @"podadera", @"ensillaba", @"rocín", @"escriben", @"aunque", nil];
     
-    NSAttributedString* attString = [CTHMarkupParser attrStringFromMarkup:markup];
+    self.attString = [CTHMarkupParser attrStringFromMarkup:markup];
     
-    //CTHView* vistaTexto = [[CTHView alloc] initWithFrame:CGRectMake(20, 20, self.view.bounds.size.width-40, self.view.bounds.size.height-40)];
-    self.textView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:0.5];
-
-    self.textView.hyphenate = YES;
-    [self.textView setAttString:attString];
-    [self.view addSubview:self.textView];
-
-    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    [self.view addGestureRecognizer:tap];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch * touch = [touches anyObject];
-    [self.textView seleccionaPalabraEnPunto:[touch locationInView:self.textView]];
-}
-- (void) tap:(UITapGestureRecognizer *) tap {
-    
-    [self.textView seleccionaPalabraEnPunto:[tap locationInView:self.textView]];
 
+    [self.textView selectWordAtPoint:[touch locationInView:self.textView] withBlock:^(NSString *word, CGRect bbox) {
+        NSLog(@"palabra: %@", word);
+        
+        CGRect wordFrame = [self.view convertRect:bbox fromView:self.textView];
+        UIView* vista = [[UIView alloc] initWithFrame:wordFrame];
+        vista.backgroundColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.5];
+        [self.view addSubview:vista];
+    }];
+    
+}
+
+- (void) tap:(UITapGestureRecognizer *) tap {
+    [self.textView selectWordAtPoint:[tap locationInView:self.textView] withBlock:^(NSString *word, CGRect bbox) {
+        NSLog(@"palabra: %@", word);
+        
+        CGRect wordFrame = [self.view convertRect:bbox fromView:self.textView];
+        UIView* vista = [[UIView alloc] initWithFrame:wordFrame];
+        vista.backgroundColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.5];
+        [self.view addSubview:vista];
+    }];
+}
+
+- (IBAction)botonDado:(id)sender {
+    if(!self.textView) {
+        self.textView = [[CTHView alloc] initWithFrame:CGRectMake(40, 30, 300, 600)];
+        self.textView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:0.5];
+        
+        self.textView.hyphenate = YES;
+        [self.textView setAttString:self.attString];
+        [self.view addSubview:self.textView];
+        
+        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        [self.view addGestureRecognizer:tap];
+        
+    } else {
+        [self.textView removeGestureRecognizer:[self.textView.gestureRecognizers lastObject]];
+        [self.textView removeFromSuperview];
+        self.textView = nil;
+    }
 }
 
 
