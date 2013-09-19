@@ -12,5 +12,6 @@ Features:
 To do:
 - Highlighting should work with hyphenated words too.
 - More markup features
+- Add localization options (right now its working in spanish)
 
 Basic Core Text and Markup stuff based on the tutorial on raywenderlich.com (http://www.raywenderlich.com/4147/core-text-tutorial-for-ios-making-a-magazine-app)
