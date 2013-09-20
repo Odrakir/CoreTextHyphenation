@@ -19,6 +19,7 @@
         self.bold = estilo.bold;
         self.italic = estilo.italic;
         self.fontSize = estilo.fontSize;
+        self.alignment = estilo.alignment;
     }
     
     return self;

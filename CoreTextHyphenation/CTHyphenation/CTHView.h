@@ -12,5 +12,6 @@
 @property (nonatomic, strong) NSAttributedString* attString;
 @property (nonatomic, assign) BOOL hyphenate;
 @property (nonatomic, assign) BOOL autoSize;
-- (void) selectWordAtPoint:(CGPoint) punto withBlock:(void (^)(NSString * word, CGRect bbox)) returnBlock;
+- (void) selectWordAtPoint:(CGPoint) punto withBlock:(void (^)(NSString * word, NSArray* frames)) returnBlock;
+@property (nonatomic, assign) BOOL drawAsFrame;
 @end

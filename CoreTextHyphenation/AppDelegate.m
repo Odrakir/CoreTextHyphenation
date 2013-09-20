@@ -12,6 +12,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    /*
     NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
     
     NSArray *fontNames;
@@ -27,7 +28,7 @@
             NSLog(@"    Font name: [%@]", [fontNames objectAtIndex:indFont]);
         }
     }
-    
+    */
     return YES;
 }
 							

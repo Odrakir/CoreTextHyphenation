@@ -32,6 +32,9 @@ static UIFont* italicFont;
     
     [estilos addObject:estilo];
     
+    markup = [markup stringByReplacingOccurrencesOfString:@"<br />" withString:@"\n"];
+    markup = [markup stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n"];
+    markup = [markup stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
     
     NSMutableAttributedString* aString = [[NSMutableAttributedString alloc] initWithString:@""];
     
@@ -48,17 +51,20 @@ static UIFont* italicFont;
         CTHMarkupStyle* estilo = [estilos lastObject];
         
         CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)estilo.font, estilo.fontSize, NULL);
-
         
-        CTTextAlignment alignment = kCTJustifiedTextAlignment;
+        CTTextAlignment alignment;
+        if(estilo.alignment)
+            alignment = estilo.alignment;
+        else
+            alignment = kCTJustifiedTextAlignment;
+        
         
         CTLineBreakMode breakMode = kCTLineBreakByWordWrapping;
-        CGFloat spaceBetweenLines = 1.0;
+        CGFloat spaceBetweenLines = 10.0;
         CTParagraphStyleSetting settings[]={
             {kCTParagraphStyleSpecifierAlignment, sizeof(alignment), &alignment},
             {kCTParagraphStyleSpecifierLineBreakMode, sizeof(breakMode), &breakMode},
-            {kCTParagraphStyleSpecifierLineSpacing, sizeof(CGFloat), &spaceBetweenLines}
-            
+            {kCTParagraphStyleSpecifierLineSpacing, sizeof(CGFloat), &spaceBetweenLines},
         };
         
         CTParagraphStyleRef paragraphStyle = CTParagraphStyleCreate(settings,
@@ -91,7 +97,7 @@ static UIFont* italicFont;
                     
                     //color
                     NSRegularExpression* colorRegex = [[NSRegularExpression alloc] initWithPattern:@"(?<=color=\")\\w+" options:0 error:NULL];
-                    [colorRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, [tag length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){                        
+                    [colorRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, [tag length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
                         
                         NSScanner *scanner = [NSScanner scannerWithString:[tag substringWithRange:match.range]];
                         uint baseColor;
@@ -100,9 +106,9 @@ static UIFont* italicFont;
                         CGFloat red   = ((baseColor & 0xFF0000) >> 16) / 255.0f;
                         CGFloat green = ((baseColor & 0x00FF00) >>  8) / 255.0f;
                         CGFloat blue  =  (baseColor & 0x0000FF) / 255.0f;
-
+                        
                         estilo.color = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
-
+                        
                     }];
                     
                     //face
@@ -126,6 +132,9 @@ static UIFont* italicFont;
                 if ([tag hasPrefix:@"i"]||[tag hasPrefix:@"em"]) {
                     UIFont* fuente = [italicFont fontWithSize:estilo.fontSize];
                     estilo.font = fuente.fontName;
+                }
+                if ([tag hasPrefix:@"center"]) {
+                    estilo.alignment = kCTCenterTextAlignment;
                 }
                 
                 [estilos addObject:estilo];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		98171FF917EC546900D6B9B6 /* CTHViewHighlight.m in Sources */ = {isa = PBXBuildFile; fileRef = 98171FF817EC546900D6B9B6 /* CTHViewHighlight.m */; };
 		98BD701317E9C31200BD2E58 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98BD701217E9C31200BD2E58 /* Foundation.framework */; };
 		98BD701517E9C31200BD2E58 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98BD701417E9C31200BD2E58 /* CoreGraphics.framework */; };
 		98BD701717E9C31200BD2E58 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98BD701617E9C31200BD2E58 /* UIKit.framework */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		98171FF717EC546900D6B9B6 /* CTHViewHighlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTHViewHighlight.h; path = CTHyphenation/CTHViewHighlight.h; sourceTree = "<group>"; };
+		98171FF817EC546900D6B9B6 /* CTHViewHighlight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTHViewHighlight.m; path = CTHyphenation/CTHViewHighlight.m; sourceTree = "<group>"; };
 		98BD700F17E9C31200BD2E58 /* CoreTextHyphenation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreTextHyphenation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98BD701217E9C31200BD2E58 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		98BD701417E9C31200BD2E58 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -176,6 +179,8 @@
 				98BD704B17E9C35700BD2E58 /* CTHMarkupStyle.m */,
 				98BD704C17E9C35700BD2E58 /* CTHMarkupParser.h */,
 				98BD704D17E9C35700BD2E58 /* CTHMarkupParser.m */,
+				98171FF717EC546900D6B9B6 /* CTHViewHighlight.h */,
+				98171FF817EC546900D6B9B6 /* CTHViewHighlight.m */,
 			);
 			name = CTHyphenation;
 			sourceTree = "<group>";
@@ -287,6 +292,7 @@
 				98BD705017E9C35700BD2E58 /* CTHMarkupParser.m in Sources */,
 				98BD702917E9C31200BD2E58 /* ViewController.m in Sources */,
 				98BD704E17E9C35700BD2E58 /* CTHView.m in Sources */,
+				98171FF917EC546900D6B9B6 /* CTHViewHighlight.m in Sources */,
 				98BD704F17E9C35700BD2E58 /* CTHMarkupStyle.m in Sources */,
 				98BD702317E9C31200BD2E58 /* AppDelegate.m in Sources */,
 				98BD701F17E9C31200BD2E58 /* main.m in Sources */,

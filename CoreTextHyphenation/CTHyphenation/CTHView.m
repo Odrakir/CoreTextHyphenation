@@ -10,13 +10,17 @@
 #import "CTHMarkupParser.h"
 #import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
+#import "CTHViewHighlight.h"
 
 @interface CTHView()
-@property (nonatomic, strong) NSAttributedString* stringToDraw;
-@property (nonatomic, assign) CTFrameRef ctFrame;
+@property (nonatomic, strong) NSArray* lineas;
+@property (nonatomic, strong) NSArray* textoLineas;
 @end
 
-@implementation CTHView
+@implementation CTHView {
+    CGFloat lineSpacing;
+    CTTextAlignment textAlignment;
+}
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -27,9 +31,9 @@
     return self;
 }
 
-- (NSAttributedString *) hyphenateAttributeString:(NSAttributedString *) sourceString {
-    
-    NSMutableAttributedString* resultString = [[NSMutableAttributedString alloc] initWithString:@""];
+- (void) hyphenateAttributeString:(NSAttributedString *) sourceString {
+    NSMutableArray * lineasMutable = [[NSMutableArray alloc] init];
+    NSMutableArray * textoLineasMutable = [[NSMutableArray alloc] init];
     
     CTTypesetterRef ctTypeSetter = CTTypesetterCreateWithAttributedString((__bridge CFAttributedStringRef)(sourceString));
     
@@ -38,6 +42,7 @@
     
     CFIndex start = 0;
     CTLineRef line;
+    NSMutableAttributedString* lineAttrString;
     
     unichar newLine = [@"\n" characterAtIndex:0];
     
@@ -78,45 +83,59 @@
                 if(breakAt!=-1) { //Se ha encontrado corte
                     count = breakAt;
                     NSRange lineRange = NSMakeRange(start, count);
-                    NSMutableAttributedString* lineAttrString = [sourceString attributedSubstringFromRange:lineRange].mutableCopy;
+                    
+                    lineAttrString = [sourceString attributedSubstringFromRange:lineRange].mutableCopy;
                     
                     [lineAttrString replaceCharactersInRange:NSMakeRange(lineAttrString.length, 0) withString:@"-"];
                     
-                    [resultString appendAttributedString:lineAttrString];
+                    
                 } else { //No se ha encontrado corte
                     NSRange lineRange = NSMakeRange(start, count);
-                    [resultString appendAttributedString:[sourceString attributedSubstringFromRange:lineRange]];
+                    lineAttrString = [sourceString attributedSubstringFromRange:lineRange].copy;
                 }
-            } else {
+            } else { //La línea entra bien
                 NSRange lineRange = NSMakeRange(start, count);
-                [resultString appendAttributedString:[sourceString attributedSubstringFromRange:lineRange]];
+                lineAttrString = [sourceString attributedSubstringFromRange:lineRange].copy;
             }
-        } else {
-            NSRange lineRange = NSMakeRange(start, count);
-            [resultString appendAttributedString:[sourceString attributedSubstringFromRange:lineRange]];
         }
         
         CFRelease(line);
+        line = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)(lineAttrString));
+        
+        
+        CTLineRef justifiedLine = CTLineCreateJustifiedLine(line, 1.0, self.bounds.size.width);
+        if(!justifiedLine)
+            justifiedLine = CFRetain(line);
+        CFRelease(line);
+        
+        [lineasMutable addObject:(__bridge id)(justifiedLine)];
+        [textoLineasMutable addObject:lineAttrString];
         start += count;
     }
     
+    self.lineas = lineasMutable.copy;
+    self.textoLineas = textoLineasMutable.copy;
+    
     CFRelease(localeRef);
     CFRelease(ctTypeSetter);
-    
-    return resultString.copy;
 }
 
 - (void) setAttString:(NSAttributedString *)attString {
     _attString = attString;
+
+    if(!_attString)
+        return;
+    
+    NSDictionary* attributes = [self.attString attributesAtIndex:0 effectiveRange:NULL];
+    CTParagraphStyleRef paragraphStyle = (__bridge CTParagraphStyleRef)([attributes valueForKey:(id)kCTParagraphStyleAttributeName]);
+
+    CTParagraphStyleGetValueForSpecifier(paragraphStyle, kCTParagraphStyleSpecifierLineSpacing, sizeof(lineSpacing), &(lineSpacing));
+    CTParagraphStyleGetValueForSpecifier(paragraphStyle, kCTParagraphStyleSpecifierAlignment, sizeof(textAlignment), &(textAlignment));
     
     if(self.hyphenate) {
-        NSDictionary* attributes = [self.attString attributesAtIndex:0 effectiveRange:NULL];
-        CTParagraphStyleRef paragraphStyle = (__bridge CTParagraphStyleRef)([attributes valueForKey:(id)kCTParagraphStyleAttributeName]);
-        
-        CTTextAlignment textAlignment;
-        if (CTParagraphStyleGetValueForSpecifier(paragraphStyle, kCTParagraphStyleSpecifierAlignment, sizeof(textAlignment), &(textAlignment))) {
+        if (textAlignment) {
             if(textAlignment == kCTJustifiedTextAlignment) {
-                self.stringToDraw = [self hyphenateAttributeString:self.attString];
+                [self hyphenateAttributeString:self.attString];
             }
         }
     }
@@ -132,16 +151,6 @@
         CFRelease(framesetter);
     }
     
-    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.stringToDraw);
-    
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddRect(path, NULL, self.bounds);
-    
-    self.ctFrame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, [self.stringToDraw length]), path, NULL);
-    
-    CGPathRelease(path);
-    CFRelease(framesetter);
-    
     [self setNeedsDisplay];
 }
 
@@ -155,82 +164,144 @@
     CGContextTranslateCTM(context, 0, self.bounds.size.height);
     CGContextScaleCTM(context, 1.0, -1.0);
     
-    CTFrameDraw(self.ctFrame, context);
     
+    CGFloat ypos_ant = 0;
+    CGFloat descent_ant = 0;
+    for (CFIndex i = 0; i < self.lineas.count; i++) {
+        CTLineRef line = (__bridge CTLineRef)([self.lineas objectAtIndex:i]);
+        
+        CGFloat ascent = 0;
+        CGFloat descent = 0;
+        CGFloat leading = 0;
+        
+        CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
+        
+        CGFloat posy;
+        if(i==0)
+            posy = ascent+leading;
+        else
+            posy = ypos_ant+descent_ant+ascent+lineSpacing+leading;
+        
+        CGContextSetTextPosition(context, 0.0, self.frame.size.height - posy);
+        CTLineDraw(line, context);
+        
+        ypos_ant = posy;
+        descent_ant = descent;
+    }
     
 }
 
 /*
-- (void) layoutSubviews {
-    if(!self.attString)
-        return;
-}
+ - (void) layoutSubviews {
+ if(!self.attString)
+ return;
+ }
  */
 
-- (void) selectWordAtPoint:(CGPoint) punto withBlock:(void (^)(NSString * word, CGRect bbox)) returnBlock {
+- (CTHViewHighlight *) selectWordAtPoint:(CGPoint)punto fromLine:(int) l {
+    CTLineRef line = (__bridge CTLineRef)([self.lineas objectAtIndex:l]);
     
-    CGRect wordFrame;
-    
-    CFArrayRef lines = CTFrameGetLines(self.ctFrame);
-    size_t numOfLines = CFArrayGetCount(lines);
-    CGPoint lineOrigins[numOfLines];
-    CTFrameGetLineOrigins(self.ctFrame, CFRangeMake(0, 0), lineOrigins);
-    
-    CGRect lineFrame;
     NSString* palabra;
     
-    for (CFIndex i = 0; i < numOfLines; i++) {
-        CTLineRef line = CFArrayGetValueAtIndex(lines, i);
+    CFIndex stringIndex = CTLineGetStringIndexForPosition(line, CGPointMake(punto.x, 0));
+    
+    CFRange lineRange = CTLineGetStringRange(line);
+    
+    NSString * lineStr = [[self.textoLineas objectAtIndex:l] attributedSubstringFromRange:NSMakeRange(lineRange.location, lineRange.length)].string;
+    NSArray* palabras = [lineStr componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    int numchar = 0;
+    int indice = (int)stringIndex;// - (int)lineRange.location;
+    int p = 0;
+    
+    BOOL encontrado = NO;
+    while(!encontrado && numchar<lineStr.length) {
+        palabra = [palabras objectAtIndex:p];
+        if((numchar + palabra.length) > indice)
+            encontrado = YES;
+        else {
+            numchar += palabra.length+1;
+            p += 1;
+        }
+    }
+    
+    CTHViewHighlight* highlight = [[CTHViewHighlight alloc] init];
+    highlight.palabra = palabra;
+    highlight.inicio = CTLineGetOffsetForStringIndex(line, numchar + lineRange.location, NULL);
+    highlight.final = CTLineGetOffsetForStringIndex(line, numchar+palabra.length  + lineRange.location, NULL);
+    
+    return highlight;
+}
+
+- (void) selectWordAtPoint:(CGPoint) punto withBlock:(void (^)(NSString * word, NSArray* frames)) returnBlock {
+    CGRect lineFrame;
+    
+    CGFloat ypos_ant = 0;
+    CGFloat descent_ant = 0;
+    
+    for (CFIndex i = 0; i < self.lineas.count; i++) {
+        CTLineRef line = (__bridge CTLineRef)([self.lineas objectAtIndex:i]);
         
-        CGFloat width = 0;
-        CGFloat height = 0;
         CGFloat leading = 0;
         CGFloat ascent = 0;
         CGFloat descent = 0;
-        CFRange strRange = CTLineGetStringRange(line);
-        CGFloat offsetX = CTLineGetOffsetForStringIndex(line, strRange.location, NULL);
         
-        width = (CGFloat)CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
-        width += leading;
-        height = ascent + descent;
-        lineFrame = CGRectMake(lineOrigins[i].x + offsetX, self.bounds.size.height - (lineOrigins[i].y - descent) - height, width, height);
+        CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
+        CGFloat posy;
+        if(i==0)
+            posy = ascent+leading;
+        else
+            posy = ypos_ant+descent_ant+ascent+lineSpacing+leading;
         
+        lineFrame = CGRectMake(0, posy-ascent, self.bounds.size.width, ascent+descent);
+        ypos_ant = posy;
+        descent_ant = descent;
+        
+        NSString* palabra;
         if(CGRectContainsPoint(lineFrame, punto)) {
-            CFIndex stringIndex = CTLineGetStringIndexForPosition(line, CGPointMake(punto.x, 0));
+            CTHViewHighlight * highlight = [self selectWordAtPoint:CGPointMake(punto.x, 0) fromLine:i];
+            palabra = highlight.palabra;
             
-            CFRange lineRange = CTLineGetStringRange(line);
-            NSString * lineStr = [self.stringToDraw attributedSubstringFromRange:NSMakeRange(lineRange.location, lineRange.length)].string;
-            NSArray* palabras = [lineStr componentsSeparatedByCharactersInSet:[[NSCharacterSet letterCharacterSet] invertedSet]];
-            int numchar = 0;
-            int indice = (int)stringIndex - (int)lineRange.location;
-            int p = 0;
-            
-            BOOL encontrado = NO;
-            while(!encontrado && numchar<lineStr.length) {
-                palabra = [palabras objectAtIndex:p];
-                if((numchar + palabra.length) > indice)
-                    encontrado = YES;
-                else {
-                    numchar += palabra.length+1;
-                    p += 1;
+            unichar lastChar = [palabra characterAtIndex:palabra.length-1];
+            if(lastChar == [@"-" characterAtIndex:0]) {
+                palabra = [palabra substringToIndex:palabra.length-1];
+                CGRect firstFrame = CGRectMake(highlight.inicio, posy-ascent, highlight.final-highlight.inicio, ascent+descent);
+                
+                CTLineRef line = (__bridge CTLineRef)([self.lineas objectAtIndex:i+1]);
+                
+                CGFloat leading = 0;
+                CGFloat ascent = 0;
+                CGFloat descent = 0;
+                
+                CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
+                CGFloat posy;
+                posy = ypos_ant+descent_ant+ascent+lineSpacing+leading;
+                
+                CTHViewHighlight * secondHighlight = [self selectWordAtPoint:CGPointMake(0, 0) fromLine:i+1];
+                CGRect secondFrame = CGRectMake(secondHighlight.inicio, posy-ascent, secondHighlight.final-secondHighlight.inicio, ascent+descent);
+                
+                returnBlock([palabra stringByAppendingString:secondHighlight.palabra], [NSArray arrayWithObjects:[NSValue valueWithCGRect:firstFrame], [NSValue valueWithCGRect:secondFrame], nil]);
+
+            } else {
+                if(![[NSCharacterSet alphanumericCharacterSet] characterIsMember:lastChar]) {
+                    palabra = [palabra substringToIndex:palabra.length-1];
                 }
+                
+                CGRect wordFrame = CGRectMake(highlight.inicio, posy-ascent, highlight.final-highlight.inicio, ascent+descent);
+                returnBlock(palabra, [NSArray arrayWithObject:[NSValue valueWithCGRect:wordFrame]]);
             }
-            
-            CGFloat inicio = CTLineGetOffsetForStringIndex(line, numchar + lineRange.location, NULL);
-            CGFloat final = CTLineGetOffsetForStringIndex(line, numchar+palabra.length  + lineRange.location, NULL);
-            wordFrame = CGRectMake(inicio, self.bounds.size.height - (lineOrigins[i].y - descent) - height, final-inicio, height);
             
             break;
         }
     }
-    
-    returnBlock(palabra, wordFrame);
 }
 
 - (void)dealloc
 {
     NSLog(@"dealloc");
-    CFRelease(self.ctFrame);
+    for (CFIndex i = 0; i < self.lineas.count; i++) {
+        CTLineRef line = (__bridge CTLineRef)([self.lineas objectAtIndex:i]);
+        CFRelease(line);
+    }
 }
 
 @end

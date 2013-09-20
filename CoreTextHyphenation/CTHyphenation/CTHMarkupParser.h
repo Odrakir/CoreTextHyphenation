@@ -12,5 +12,6 @@
 @interface CTHMarkupParser : NSObject
 
 + (NSAttributedString*)attrStringFromMarkup:(NSString*)html;
++ (void) setFont:(UIFont *) regular bold:(UIFont *) bold italic:(UIFont *) italic;
 
 @end

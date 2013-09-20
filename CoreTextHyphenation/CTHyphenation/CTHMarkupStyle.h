@@ -15,6 +15,7 @@
 @property (nonatomic, assign) BOOL italic;
 @property (nonatomic, assign) float fontSize;
 
+@property (nonatomic, assign) CTTextAlignment alignment;
 
 - (id) initWithStyle:(CTHMarkupStyle *) estilo;
 @end
