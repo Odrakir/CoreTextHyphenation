@@ -8,9 +8,9 @@ Features:
 - Automatic sizing (if setted, the text view will grow as heigh as needed)
 - Hightlighting (tap on the text to get the word tapped and its bounding box)
 - Basic Markup
+- Highlighting now works with hyphenated words too.
 
 To do:
-- Highlighting should work with hyphenated words too.
 - More markup features
 - Add localization options (right now its working in spanish)
 
